@@ -1,0 +1,110 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+:root {
+  --cherry: #dc143c;
+  --cherry-dark: #8b0d27;
+  --cherry-bright: #ff1744;
+  --black: #000000;
+  --dark: #0a0a0a;
+  --dark2: #111111;
+}
+
+body {
+  background-color: #000;
+  font-family: 'Rajdhani', sans-serif;
+  overflow-x: hidden;
+  cursor: default;
+}
+
+body::-webkit-scrollbar {
+  width: 4px;
+}
+body::-webkit-scrollbar-track { background: #000; }
+body::-webkit-scrollbar-thumb { background: var(--cherry); border-radius: 2px; }
+
+.font-orbitron { font-family: 'Orbitron', monospace; }
+.font-mono-tech { font-family: 'Share Tech Mono', monospace; }
+
+.glow-cherry {
+  box-shadow: 0 0 10px var(--cherry), 0 0 20px var(--cherry), 0 0 40px var(--cherry-dark);
+}
+.glow-text-cherry {
+  text-shadow: 0 0 10px var(--cherry), 0 0 20px var(--cherry);
+}
+
+.border-cherry-glow {
+  border: 1px solid var(--cherry);
+  box-shadow: 0 0 8px var(--cherry), inset 0 0 8px rgba(220, 20, 60, 0.1);
+}
+
+.node-box {
+  background: rgba(10, 10, 10, 0.9);
+  border: 1px solid rgba(220, 20, 60, 0.6);
+  box-shadow: 0 0 15px rgba(220, 20, 60, 0.3), inset 0 0 15px rgba(220, 20, 60, 0.05);
+  backdrop-filter: blur(10px);
+}
+
+.node-box:hover {
+  border-color: var(--cherry);
+  box-shadow: 0 0 25px rgba(220, 20, 60, 0.6), inset 0 0 20px rgba(220, 20, 60, 0.1);
+  transform: scale(1.02);
+}
+
+.modal-overlay {
+  background: rgba(0, 0, 0, 0.92);
+  backdrop-filter: blur(20px);
+}
+
+.skill-bar-fill {
+  background: linear-gradient(90deg, var(--cherry-dark), var(--cherry), var(--cherry-bright));
+  box-shadow: 0 0 10px var(--cherry);
+}
+
+@keyframes particleFloat {
+  0% { transform: translateY(0) rotate(0deg); opacity: 1; }
+  100% { transform: translateY(-100px) rotate(720deg); opacity: 0; }
+}
+
+@keyframes scanLine {
+  0% { transform: translateY(-100%); }
+  100% { transform: translateY(100vh); }
+}
+
+@keyframes borderRotate {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+.scan-line {
+  animation: scanLine 4s linear infinite;
+}
+
+.profile-ring::before {
+  content: '';
+  position: absolute;
+  inset: -4px;
+  border-radius: 50%;
+  background: conic-gradient(from 0deg, transparent 0deg, var(--cherry) 60deg, transparent 120deg);
+  animation: borderRotate 3s linear infinite;
+  z-index: -1;
+}
+
+.card-hover {
+  transition: all 0.3s ease;
+}
+.card-hover:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 0 30px rgba(220,20,60,0.5);
+}
+
+@media (max-width: 768px) {
+  .node-connections { display: none; }
+}
