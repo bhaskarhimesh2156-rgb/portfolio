@@ -20,7 +20,7 @@ export default function KnowAboutMeModal({ onClose, onSelect }) {
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       exit={{ opacity: 0 }}
-      className="fixed inset-0 z-50 flex items-center justify-center modal-overlay"
+      className="fixed inset-0 z-50 flex items-center justify-center modal-overlay px-3"
       onClick={(e) => e.target === e.currentTarget && onClose()}
     >
       <motion.div
@@ -28,17 +28,19 @@ export default function KnowAboutMeModal({ onClose, onSelect }) {
         animate={{ scale: 1, opacity: 1 }}
         exit={{ scale: 0.7, opacity: 0 }}
         transition={{ type: 'spring', damping: 20 }}
-        className="relative w-full max-w-2xl mx-4"
+        className="relative w-full max-w-2xl"
         style={{
           background: 'rgba(5,5,5,0.97)',
           border: '1px solid rgba(220,20,60,0.5)',
           boxShadow: '0 0 60px rgba(220,20,60,0.3)',
           borderRadius: 12,
-          padding: '2rem',
+          padding: 'clamp(1rem, 4vw, 2rem)',
           overflow: 'visible',
+          /* keep avatar from overflowing viewport on mobile */
+          marginTop: 'clamp(48px, 10vw, 80px)',
         }}
       >
-        {/* Hanging avatar - positioned above the top-left of the box, no circle */}
+        {/* Hanging avatar */}
         <motion.img
           src="avatar-idle.png"
           alt="Avatar"
@@ -50,9 +52,9 @@ export default function KnowAboutMeModal({ onClose, onSelect }) {
           }}
           style={{
             position: 'absolute',
-            top: -70,
+            top: 'clamp(-50px, -10vw, -70px)',
             left: 8,
-            width: 90,
+            width: 'clamp(60px, 15vw, 90px)',
             height: 'auto',
             filter: 'drop-shadow(0 0 12px rgba(220,20,60,0.6))',
             pointerEvents: 'none',
@@ -61,24 +63,33 @@ export default function KnowAboutMeModal({ onClose, onSelect }) {
         />
 
         {/* Close button */}
-        <button onClick={onClose}
-          className="absolute top-4 right-4 text-cherry-600 hover:text-cherry-400 transition-colors"
-          style={{ background: 'none', border: 'none', cursor: 'pointer' }}>
+        <button
+          onClick={onClose}
+          className="absolute top-3 right-3 text-cherry-600 hover:text-cherry-400 transition-colors"
+          style={{ background: 'none', border: 'none', cursor: 'pointer' }}
+        >
           <X size={22} />
         </button>
 
         {/* Title */}
-        <div className="flex flex-col items-center mb-2 pt-6">
-          <h2 className="font-orbitron text-2xl font-bold"
-            style={{ color: '#dc143c', textShadow: '0 0 15px #dc143c' }}>
-              EXPLORE 
+        <div className="flex flex-col items-center mb-2 pt-5">
+          <h2
+            className="font-orbitron font-bold"
+            style={{
+              color: '#dc143c',
+              textShadow: '0 0 15px #dc143c',
+              fontSize: 'clamp(1.1rem, 5vw, 1.5rem)',
+            }}
+          >
+            EXPLORE
           </h2>
-          <p className="text-xs font-mono-tech text-gray-500 tracking-widest mt-1">
+          <p className="text-xs font-mono-tech text-gray-500 tracking-widest mt-1 text-center">
             SELECT A SECTION TO NAVIGATE
           </p>
         </div>
 
-        <div className="grid grid-cols-3 gap-3 mt-4">
+        {/* Grid — 3 cols on md+, 3 cols on sm too but smaller padding */}
+        <div className="grid grid-cols-3 gap-2 sm:gap-3 mt-4">
           {MENU_ITEMS.map((item, i) => {
             const Icon = item.icon;
             return (
@@ -89,10 +100,12 @@ export default function KnowAboutMeModal({ onClose, onSelect }) {
                 transition={{ delay: i * 0.06 }}
                 onMouseEnter={() => playHover()}
                 onClick={() => { playOpen(); onSelect(item.id); onClose(); }}
-                className="flex flex-col items-center justify-center gap-2 p-4 rounded-lg cursor-pointer transition-all duration-300"
+                className="flex flex-col items-center justify-center gap-1.5 rounded-lg cursor-pointer transition-all duration-300"
                 style={{
                   background: 'rgba(220,20,60,0.05)',
                   border: '1px solid rgba(220,20,60,0.3)',
+                  padding: 'clamp(0.5rem, 2.5vw, 1rem)',
+                  minHeight: 'clamp(64px, 18vw, 90px)',
                 }}
                 whileHover={{
                   scale: 1.05,
@@ -102,8 +115,13 @@ export default function KnowAboutMeModal({ onClose, onSelect }) {
                 }}
                 whileTap={{ scale: 0.95 }}
               >
-                <Icon size={24} color={item.color} />
-                <span className="font-orbitron text-xs text-white tracking-wider">{item.label}</span>
+                <Icon size={20} color={item.color} className="flex-shrink-0" />
+                <span
+                  className="font-orbitron text-white tracking-wider text-center leading-tight"
+                  style={{ fontSize: 'clamp(0.55rem, 2vw, 0.75rem)' }}
+                >
+                  {item.label}
+                </span>
               </motion.button>
             );
           })}

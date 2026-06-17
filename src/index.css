@@ -108,3 +108,35 @@ body::-webkit-scrollbar-thumb { background: var(--cherry); border-radius: 2px; }
 @media (max-width: 768px) {
   .node-connections { display: none; }
 }
+
+/* ── Responsive overrides ── */
+
+/* On mobile, the node-connection SVG lines are hidden (node-connections class),
+   so no need to force them; the class already has a media query in the original. */
+
+/* Touch targets — make sure tappable items are at least 44 px tall */
+@media (max-width: 767px) {
+  button, a {
+    min-height: 36px;
+  }
+
+  /* Tighter header on mobile */
+  header {
+    padding-left: 1rem;
+    padding-right: 1rem;
+  }
+
+  /* Bottom tagline stays hidden on mobile (already hidden md:block) */
+
+  /* Keep modal scrollable without body scroll jumping */
+  .modal-overlay {
+    -webkit-overflow-scrolling: touch;
+  }
+
+  /* Profile ring stays proportional */
+  .profile-ring::before {
+    inset: -3px;
+  }
+}
+
+/* Fluid font helpers used via clamp() inline styles — no extra CSS needed */

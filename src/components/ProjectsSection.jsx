@@ -4,8 +4,6 @@ import { Github, ChevronDown, ChevronUp, X, ExternalLink } from 'lucide-react';
 import { PROJECTS } from '../utils/data';
 import { playHover } from '../utils/sounds';
 
-const CATEGORY_COLORS = { ML: '#dc143c', AI: '#ff2244', EE: '#cc1133', IoT: '#e01a40' };
-
 function ProjectCard({ project, index }) {
   const [expanded, setExpanded] = useState(false);
 
@@ -15,7 +13,7 @@ function ProjectCard({ project, index }) {
       animate={{ opacity: 1, y: 0 }}
       transition={{ delay: index * 0.1 }}
       onMouseEnter={() => playHover()}
-      className="rounded-lg p-5 card-hover"
+      className="rounded-lg p-4 sm:p-5 card-hover"
       style={{
         background: 'rgba(10,10,10,0.9)',
         border: '1px solid rgba(220,20,60,0.4)',
@@ -28,7 +26,7 @@ function ProjectCard({ project, index }) {
             style={{ background: 'rgba(220,20,60,0.2)', color: '#ff4466', border: '1px solid rgba(220,20,60,0.4)' }}>
             {project.category}
           </span>
-          <h3 className="font-orbitron text-base font-bold text-white mt-1">{project.title}</h3>
+          <h3 className="font-orbitron text-sm sm:text-base font-bold text-white mt-1">{project.title}</h3>
           <p className="text-cherry-600 text-xs font-mono-tech">{project.subtitle}</p>
         </div>
       </div>
@@ -68,14 +66,14 @@ function ProjectCard({ project, index }) {
         <a href={project.github} target="_blank" rel="noopener noreferrer"
           className="flex items-center gap-2 px-3 py-2 rounded text-xs font-orbitron transition-all duration-300"
           style={{ background: 'rgba(220,20,60,0.1)', border: '1px solid rgba(220,20,60,0.4)', color: '#dc143c' }}
-          onMouseEnter={e => { e.target.style.background = 'rgba(220,20,60,0.25)'; }}
-          onMouseLeave={e => { e.target.style.background = 'rgba(220,20,60,0.1)'; }}>
+          onMouseEnter={e => { e.currentTarget.style.background = 'rgba(220,20,60,0.25)'; }}
+          onMouseLeave={e => { e.currentTarget.style.background = 'rgba(220,20,60,0.1)'; }}>
           <Github size={14} /> GitHub
         </a>
         <button
           onClick={() => setExpanded(!expanded)}
           className="flex items-center gap-2 px-3 py-2 rounded text-xs font-orbitron transition-all duration-300"
-          style={{ background: 'rgba(255,255,255,0.05)', border: '1px solid rgba(255,255,255,0.15)', color: '#aaa' }}>
+          style={{ background: 'rgba(255,255,255,0.05)', border: '1px solid rgba(255,255,255,0.15)', color: '#aaa', cursor: 'pointer' }}>
           {expanded ? <><ChevronUp size={14} /> Less</> : <><ChevronDown size={14} /> Details</>}
         </button>
       </div>
@@ -101,17 +99,25 @@ export function SectionWrapper({ title, onClose, children }) {
       exit={{ opacity: 0 }}
       className="fixed inset-0 z-50 overflow-y-auto modal-overlay"
     >
-      <div className="min-h-screen py-8 px-4">
+      <div className="min-h-screen py-5 sm:py-8 px-3 sm:px-4">
         <div className="max-w-5xl mx-auto">
-          <div className="flex items-center justify-between mb-8">
-            <h2 className="font-orbitron text-3xl font-bold"
-              style={{ color: '#dc143c', textShadow: '0 0 20px #dc143c' }}>
+          <div className="flex items-center justify-between mb-5 sm:mb-8">
+            <h2
+              className="font-orbitron font-bold"
+              style={{
+                color: '#dc143c',
+                textShadow: '0 0 20px #dc143c',
+                fontSize: 'clamp(1.1rem, 5vw, 1.75rem)',
+              }}
+            >
               ◈ {title} ◈
             </h2>
-            <button onClick={onClose}
-              className="flex items-center gap-2 px-4 py-2 rounded font-orbitron text-sm transition-all"
-              style={{ background: 'rgba(220,20,60,0.1)', border: '1px solid rgba(220,20,60,0.4)', color: '#dc143c', cursor: 'pointer' }}>
-              <X size={16} /> CLOSE
+            <button
+              onClick={onClose}
+              className="flex items-center gap-1.5 sm:gap-2 px-3 sm:px-4 py-2 rounded font-orbitron text-xs sm:text-sm transition-all flex-shrink-0"
+              style={{ background: 'rgba(220,20,60,0.1)', border: '1px solid rgba(220,20,60,0.4)', color: '#dc143c', cursor: 'pointer' }}
+            >
+              <X size={14} /> CLOSE
             </button>
           </div>
           {children}

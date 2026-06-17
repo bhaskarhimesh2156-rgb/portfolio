@@ -1,4 +1,3 @@
-import { useState } from 'react';
 import { motion } from 'framer-motion';
 import { SKILLS } from '../utils/data';
 import { SectionWrapper } from './ProjectsSection';
@@ -15,7 +14,7 @@ function SkillBar({ name, level, index }) {
     >
       <div className="flex justify-between mb-1">
         <span className="text-sm text-white font-mono-tech">{name}</span>
-        <span className="text-xs text-cherry-600 font-mono-tech">{level}%</span>
+        <span className="text-xs font-mono-tech" style={{ color: '#dc143c' }}>{level}%</span>
       </div>
       <div className="h-1.5 rounded-full" style={{ background: 'rgba(220,20,60,0.15)' }}>
         <motion.div
@@ -34,17 +33,17 @@ export default function SkillsSection({ onClose }) {
 
   return (
     <SectionWrapper title="SKILLS" onClose={onClose}>
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
         {categories.map((cat, ci) => (
           <motion.div
             key={cat}
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: ci * 0.1 }}
-            className="rounded-lg p-5 card-hover"
+            className="rounded-lg p-4 sm:p-5 card-hover"
             style={{ background: 'rgba(10,10,10,0.9)', border: '1px solid rgba(220,20,60,0.3)' }}
           >
-            <h3 className="font-orbitron text-sm font-bold mb-4 tracking-wider"
+            <h3 className="font-orbitron text-xs sm:text-sm font-bold mb-4 tracking-wider"
               style={{ color: '#dc143c', textShadow: '0 0 8px #dc143c' }}>
               {cat.toUpperCase()}
             </h3>
